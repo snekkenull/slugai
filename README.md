@@ -55,4 +55,4 @@ const customSlug = await slugai('Your text here', {
 
 ## License
 
-MIT
+ Apache-2.0
