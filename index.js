@@ -8,12 +8,14 @@ const slugify = require('slugify');
  */
 async function slugai(text, options = {}) {
   const defaults = {
+    // slugify options
     replacement: '-',
     remove: undefined,
     lower: false,
     strict: false,
     locale: 'vi',
     trim: true,
+    // ai options
     ai: false,
     model: 'gpt-4o',
     apikey: '',
@@ -21,6 +23,14 @@ async function slugai(text, options = {}) {
   };
 
   const config = { ...defaults, ...options };
+  const slugifyOptions = {
+    replacement: config.replacement,
+    remove: config.remove,
+    lower: config.lower,
+    strict: config.strict,
+    locale: config.locale,
+    trim: config.trim
+  };
 
   let processedText = text;
 
@@ -69,7 +79,7 @@ async function slugai(text, options = {}) {
     }
   }
 
-  return slugify(processedText, config);
+  return slugify(processedText, slugifyOptions);
 }
 
 module.exports = slugai;
