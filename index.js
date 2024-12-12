@@ -1,4 +1,4 @@
-const slugify = require('slugify');
+import slugify from 'slugify';
 
 /**
  * Generate a slug from the given string, optionally using AI to rewrite the content
@@ -82,5 +82,4 @@ async function slugai(text, options = {}) {
   return slugify(processedText, slugifyOptions);
 }
 
-module.exports = slugai;
 export default slugai;
