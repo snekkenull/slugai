@@ -1,5 +1,4 @@
 const slugify = require('slugify');
-const OpenAI = require('openai');
 
 /**
  * Generate a slug from the given string, optionally using AI to rewrite the content
@@ -31,45 +30,47 @@ async function slugai(text, options = {}) {
     }
 
     try {
-      const openai = new OpenAI({
-        apiKey: config.apikey,
-        baseURL: `https://${config.baseurl}/v1`
-      });
-
-      const prompt = `Rewrite the following text in English to be more SEO-friendly and semantic, 
-        focusing on the main topic and key concepts. Keep it concise.
+      const prompt = `Rewrite the following text in English while focusing on the main topic and key concepts. Keep it concise. 
+        Do not provide any explanations or text apart from the rewrite.
         Original text (${config.locale}): "${text}"`;
 
-      const completion = await openai.chat.completions.create({
-        model: config.model,
-        messages: [
-          {
-            role: "system",
-            content: "You are a helpful assistant that rewrites text to be more SEO-friendly and semantic."
-          },
-          {
-            role: "user",
-            content: prompt
-          }
-        ],
-        temperature: 0.3,
-        max_tokens: 100
+      const response = await fetch(`https://${config.baseurl}/v1/chat/completions`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${config.apikey}`
+        },
+        body: JSON.stringify({
+          model: config.model,
+          messages: [
+            {
+              role: "system",
+              content: "You are a helpful assistant that rewrites text to be more SEO-friendly and semantic."
+            },
+            {
+              role: "user",
+              content: prompt
+            }
+          ],
+          temperature: 0.3,
+          max_tokens: 100
+        })
       });
 
+      if (!response.ok) {
+        const error = await response.json();
+        throw new Error(error.error?.message || 'AI processing failed');
+      }
+
+      const completion = await response.json();
       processedText = completion.choices[0].message.content.trim();
     } catch (error) {
       throw new Error(`AI processing failed: ${error.message}`);
     }
   }
 
-  return slugify(processedText, {
-    replacement: config.replacement,
-    remove: config.remove,
-    lower: config.lower,
-    strict: config.strict,
-    locale: config.locale,
-    trim: config.trim
-  });
+  return slugify(processedText, config);
 }
 
 module.exports = slugai;
+export default slugai;

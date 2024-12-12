@@ -49,7 +49,7 @@ const customSlug = await slugai('Your text here', {
 - `locale` (string): Language code of the locale to use
 - `trim` (boolean): Trim leading and trailing replacement chars (default: true)
 - `ai` (boolean): Enable AI-powered content rewriting (default: false)
-- `model` (string): OpenAI model to use (default: "gpt-4")
+- `model` (string): OpenAI model to use (default: "gpt-4o")
 - `apikey` (string): OpenAI API key
 - `baseurl` (string): API base URL (default: "api.openai.com")
 

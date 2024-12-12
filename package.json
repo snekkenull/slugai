@@ -3,13 +3,13 @@
   "version": "1.0.0",
   "description": "AI-powered slug generator with multilingual support",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "test": "jest"
   },
   "keywords": [
     "slug",
     "ai",
-    "openai",
     "url",
     "seo",
     "slugify"
@@ -17,8 +17,7 @@
   "author": "snekkenull",
   "license": "Apache-2.0",
   "dependencies": {
-    "slugify": "^1.6.6",
-    "openai": "^4.0.0"
+    "slugify": "^1.6.6"
   },
   "repository": {
     "type": "git",
