@@ -1,6 +1,6 @@
 # slugai
 
-AI-powered slug generator with multilingual support. This package extends the functionality of `slugify` by adding AI-powered content rewriting capabilities using OpenAI's GPT models.
+AI-powered slug generator with multilingual support. This package extends the functionality of `slugify` by adding AI-powered content rewriting capabilities using OpenAI API compatible models.
 
 ## Installation
 
@@ -49,10 +49,10 @@ const customSlug = await slugai('Your text here', {
 - `locale` (string): Language code of the locale to use
 - `trim` (boolean): Trim leading and trailing replacement chars (default: true)
 - `ai` (boolean): Enable AI-powered content rewriting (default: false)
-- `model` (string): OpenAI model to use (default: "gpt-4o")
+- `model` (string): OpenAI model to use (default: "gpt-4")
 - `apikey` (string): OpenAI API key
 - `baseurl` (string): API base URL (default: "api.openai.com")
 
 ## License
 
- Apache-2.0
+MIT
